@@ -24,7 +24,7 @@ pipeline {
                     sh "docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REPO_URL/$IMAGE_NAME:$IMAGE_TAG"
                     
                     // AWS ECR에 로그인
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'your_aws_credentials_id', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         sh "aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO_URL"
                     }
 
