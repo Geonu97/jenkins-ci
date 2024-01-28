@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Use Jenkins global AWS credentials
-                    withCredentials([AWS Credentials(credentialsId: 'AWS', accessKeyVariable: 'ACCESS_KEY_ID', secretKeyVariable: 'SECRET_ACCESS_KEY')]) {
+                    withCredentials([usernamePassword(credentialsId: 'AWS_Credentials', usernameVariable: 'ACCESS_KEY_ID', passwordVariable: 'SECRET_ACCESS_KEY')]) {
                         // AWS ECR login
                         sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
 
