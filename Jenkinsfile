@@ -33,10 +33,10 @@ pipeline {
                     git branch: 'main', credentialsId: "${GIT_CREDENTIAL_NAME}", url: "${HELM_CHART_REPO}"
                     
                     // 이미지 태그 업데이트
-                    sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' ${HELM_CHART_PATH}/values.yaml"
+                    sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' values.yaml"
                     
                     // 변경 사항을 Git에 푸시
-                    sh "git add ${HELM_CHART_PATH}/values.yaml"
+                    sh "git add values.yaml"
                     sh "git commit -m 'Update image tag in Helm Chart'"
                     sh "git push origin main"
                 }
