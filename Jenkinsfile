@@ -26,6 +26,16 @@ pipeline {
             }
         }
 
+        stage('Configure Git') {
+            steps {
+                script {
+                    // Git 사용자 정보 설정
+                    sh "git config --global user.email 'you@example.com'"
+                    sh "git config --global user.name 'Your Name'"
+                }
+            }
+        }
+
         stage('Update Helm Chart Image Tag') {
             steps {
                 script {
