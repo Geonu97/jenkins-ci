@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     // Git 리포지토리 클론
-                    withCredentials([usernamePassword(credentialsId: "${GIT_CREDENTIAL_NAME}", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: "${GIT_CREDENTIAL_NAME}", passwordVariable: 'PASSWORD', usernameVariable: 'Username')]) {
                         git branch: 'main', credentialsId: "${GIT_CREDENTIAL_NAME}", url: "${HELM_CHART_REPO}"
                         
                         // 이미지 태그 업데이트
