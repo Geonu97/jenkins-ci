@@ -43,6 +43,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: "${GIT_CREDENTIAL_NAME}", passwordVariable: 'PASSWORD', usernameVariable: 'Username')]) {
                         
                         // 이미지 태그 업데이트
+                        sh "git branch -M main"
                         sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' values.yaml"
                         
                         // 변경 사항을 Git에 푸시
