@@ -31,7 +31,7 @@ pipeline {
                 script {
                     // Git 사용자 정보 설정
                     sh "git config --global user.email 'player97@daum.net'"
-                    sh "git config --global user.name Geonu97"
+                    sh "git config --global user.name 'Geonu97'"
                 }
             }
         }
@@ -47,6 +47,7 @@ pipeline {
                         sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' values.yaml"
                         
                         // 변경 사항을 Git에 푸시
+                        sh "git config --global user.name 'Geonu97'"
                         sh "git add values.yaml"
                         sh "git commit -m 'Update image tag in Helm Chart'"
                         sh "git remote set-url origin ${HELM_CHART_REPO}"
