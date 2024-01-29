@@ -40,16 +40,15 @@ pipeline {
             steps {
                 script {
                     // Git 리포지토리 클론
-                    withCredentials([usernamePassword(credentialsId: "${GIT_CREDENTIAL_NAME}", passwordVariable: 'PASSWORD', usernameVariable: 'Username')]) {
+                    withCredentials([usernamePassword(credentialsId: "${GIT_CREDENTIAL_NAME}", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        git branch: 'main', credentialsId: "${GIT_CREDENTIAL_NAME}", url: "${HELM_CHART_REPO}"
                         
-                        // 이미지 태그 업데이트
-                        sh "git branch -M main"
-                        sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' values.yaml"
+                        // Helm 차트의 values.yaml 파일 업데이트
+                        sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' Helm-chart-app/values.yaml"
                         
                         // 변경 사항을 Git에 푸시
-                        sh "git add values.yaml"
+                        sh "git add Helm-chart-app/values.yaml"
                         sh "git commit -m 'Update image tag in Helm Chart'"
-                        sh "git branch -M main"
                         sh "git remote set-url origin ${HELM_CHART_REPO}"
                         sh "git push -u origin main"
                     }
