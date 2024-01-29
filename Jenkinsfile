@@ -8,6 +8,9 @@ pipeline {
         DOCKER_IMAGE_TAG = "${env.BUILD_NUMBER.take(6)}"
         ECR_PATH = "188870935142.dkr.ecr.ap-northeast-2.amazonaws.com"
         AWS_CREDENTIAL_NAME = 'AWS'
+        GIT_CREDENTIAL_NAME = 'Git_Jenkins_ci'
+        HELM_CHART_REPO = 'https://github.com/Geonu97/Helm-chart-project-app.git'
+        HELM_CHART_PATH = 'Geonu97/Helm-chart-project-app'
     }
 
     stages {
@@ -19,6 +22,23 @@ pipeline {
                         def customImage = docker.build("${ECR_REPO_NAME}:${DOCKER_IMAGE_TAG}", "-t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} .")
                         customImage.push()
                     }
+                }
+            }
+        }
+
+        stage('Update Helm Chart Image Tag') {
+            steps {
+                script {
+                    // Git 리포지토리 클론
+                    git branch: 'main', credentialsId: "${GIT_CREDENTIAL_NAME}", url: "${HELM_CHART_REPO}"
+                    
+                    // 이미지 태그 업데이트
+                    sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' ${HELM_CHART_PATH}/values.yaml"
+                    
+                    // 변경 사항을 Git에 푸시
+                    sh "git add ${HELM_CHART_PATH}/values.yaml"
+                    sh "git commit -m 'Update image tag in Helm Chart'"
+                    sh "git push origin main"
                 }
             }
         }
