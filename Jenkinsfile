@@ -49,7 +49,7 @@ pipeline {
                         // 변경 사항을 Git에 푸시
                         sh "git add values.yaml"
                         sh "git commit -m 'Update image tag in Helm Chart'"
-                        sh "git push origin main"
+                        sh "git push -u origin main"
                     }
                 }
             }
