@@ -50,7 +50,7 @@ pipeline {
                         sh "git add values.yaml"
                         sh "git commit -m 'Update image tag in Helm Chart'"
                         sh "git remote set-url origin ${HELM_CHART_REPO}"
-                        sh "git push -u origin main"
+                        sh "git push --set-upstream origin main"
                     }
                 }
             }
