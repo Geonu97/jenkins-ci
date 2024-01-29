@@ -8,7 +8,7 @@ pipeline {
         DOCKER_IMAGE_TAG = "${env.BUILD_NUMBER.take(6)}"
         ECR_PATH = "188870935142.dkr.ecr.ap-northeast-2.amazonaws.com"
         AWS_CREDENTIAL_NAME = 'AWS'
-        GIT_CREDENTIAL_NAME = 'Git_Jenkins_ci'
+        GIT_CREDENTIAL_NAME = 'GitAPI'
         HELM_CHART_REPO = 'https://github.com/Geonu97/Helm-chart-app.git'
         HELM_CHART_PATH = 'Geonu97/Helm-chart-project-app'
     }
