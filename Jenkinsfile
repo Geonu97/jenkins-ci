@@ -30,8 +30,8 @@ pipeline {
             steps {
                 script {
                     // Git 사용자 정보 설정
-                    sh "git config --global user.email 'you@example.com'"
-                    sh "git config --global user.name 'Your Name'"
+                    sh "git config --global user.email 'player97@daum.net'"
+                    sh "git config --global user.name 'Geonu97'"
                 }
             }
         }
