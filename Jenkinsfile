@@ -44,10 +44,10 @@ pipeline {
                         git branch: 'main', credentialsId: "${GIT_CREDENTIAL_NAME}", url: "${HELM_CHART_REPO}"
                         
                         // Helm 차트의 values.yaml 파일 업데이트
-                        sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' Helm-chart-app/values.yaml"
+                        sh "sed -i 's|tag: \".*\"|tag: \"${DOCKER_IMAGE_TAG}\"|' values.yaml"
                         
                         // 변경 사항을 Git에 푸시
-                        sh "git add Helm-chart-app/values.yaml"
+                        sh "git add values.yaml"
                         sh "git commit -m 'Update image tag in Helm Chart'"
                         sh "git remote set-url origin ${HELM_CHART_REPO}"
                         sh "git push -u origin main"
